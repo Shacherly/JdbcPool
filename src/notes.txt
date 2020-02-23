@@ -1,0 +1,28 @@
+1.无形之中就用到了静态代理模式Proxy  我明确知道我替谁在代理
+    ConnectionProxy对象持有真实的Connection对象执行业务；
+    说是Connection对象，但Connection只是个接口何来对象？
+    Connection connection = DriverManager.getConnection(url, user, pass);
+    真实的对象来自于DriverManager.getConnection()，但是我们甚至都不知道真实的对象类型；
+    只知道它是Connection接口的一个子类，可以通过反射connection.getClass().getName()查看；
+
+    ConnectionProxy就是代理，因为和真实对象一样都实现了Connection接口等于拥有了相同的规则（相同的外表）
+    就可以企图蒙混过关，让用户不知道这是代理对象还是真实对象，至于ConnectionProxy给出的连接是真
+    实的连接还是自己仿造的连接就不得而知了。
+
+    偷梁换柱，用户用完连接就想关闭，但是作为连接池肯定是不能关闭的，只能偷偷地释放连接造成连接已关闭
+    的假象，这也是代理模式的特点。
+
+    所以说为什么静态代理需要一个接口，这个接口就是用来定义规则的，让假对象类型和真对象类型实现相同的规则
+    以达到偷梁换柱的目的。
+
+2.关于线程安全的问题
+    在获取连接的时候加上线程安全锁
+
+    静态方法的好处：直接类名调用方法省去了创建类对象的空间，但是这个类是需要提前加载到静态方法区的，
+    总之要么以空间换取时间，否则反之。
+
+3.四个关键点要清楚
+    a.动态代理
+    b.查询的返回值处理
+    c.SqlSessionFactory的封装要点
+    d.连接池的管理机制
