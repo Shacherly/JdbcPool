@@ -24,6 +24,7 @@
 *.iml
 *.ipr
 
+
 /target/
 # /out/
 pom.xml.tag
