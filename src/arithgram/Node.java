@@ -11,7 +11,7 @@ public class Node<T> {
     private T obj;
     private Node<T> next;
 
-    // link to the last node an return nothing
+    // link to the last node and return an header
     public Node<T> link(Node<T> node) {
         if (node == null) {
             return this;
@@ -24,7 +24,7 @@ public class Node<T> {
         return this;
     }
 
-    // get head as a single node
+    // get a link's head without next node
     public Node<T> getCurrentOnly() {
         return new Node<>(this.getObj());
     }

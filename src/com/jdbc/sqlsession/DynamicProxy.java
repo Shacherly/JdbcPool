@@ -62,7 +62,7 @@ public class DynamicProxy {
                 case UPDATE:
                     return sessionFactory.update(sqlAnno.sql(), args);
                 case SELECT:
-                    return sessionFactory.selectOne(sqlAnno.sql(), args, sqlAnno.resultType());
+                    return sessionFactory.select(sqlAnno.sql(), args, method.getReturnType(), sqlAnno.resultType());
             }
             return null;
         }

@@ -61,8 +61,12 @@ public class ConnectionPool {
     private static int gorw() {
         Connection[] newConnectionList = new Connection[connectionList.length * 2];
         byte[] newConnectionBitMap = new byte[connectionBitMap.length * 2];
-        System.arraycopy(connectionList, 0, newConnectionList, 0, newConnectionList.length);
-        System.arraycopy(connectionBitMap, 0, newConnectionBitMap, 0, newConnectionBitMap.length);
+        try {
+            System.arraycopy(connectionList, 0, newConnectionList, 0, newConnectionList.length);
+            System.arraycopy(connectionBitMap, 0, newConnectionBitMap, 0, newConnectionBitMap.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         int firstNullIndex = connectionList.length;
         // 换一个新的指向
         connectionList = newConnectionList;// 长度已经增加了

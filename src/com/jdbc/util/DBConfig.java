@@ -1,7 +1,6 @@
 package com.jdbc.util;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -12,16 +11,19 @@ public class DBConfig {
     private static Properties dbConfig;
 
     static {
+
+        // jdk7的自动关闭流
         try {
-            dbConfig = new Properties();
-            // 通过当前线程去加载一个文件
             InputStream inputStream = Thread.currentThread()
                     .getContextClassLoader().getResourceAsStream("dbconfig.properties");
+            dbConfig = new Properties();
+            // 通过当前线程去加载一个文件，但是获得的是字节流，如果有中文可能会导致乱码，还可以加一层字符流
             // InputStream inputStream = new FileInputStream("C://dbconfig.properties");
-            dbConfig.load(inputStream);
-            if (inputStream != null) {
-                inputStream.close();
-            }
+            // dbConfig.load(new FileReader("src/dbconfig.properties"));
+            // dbConfig.load(new BufferedReader(new InputStreamReader(new FileInputStream(new File("src/dbconfig.properties")))));
+            // dbConfig.load(new BufferedReader(new FileReader("src/dbconfig.properties")));
+            dbConfig.load(new FileInputStream("src/dbconfig.properties"));
+            // dbConfig.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
