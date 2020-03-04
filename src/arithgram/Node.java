@@ -33,9 +33,6 @@ public class Node<T> {
         this.obj = obj;
     }
 
-
-
-
     /**
      * @auther shiZehao
      * @date 00:25 01/18/2020
