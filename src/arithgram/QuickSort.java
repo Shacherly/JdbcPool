@@ -16,11 +16,11 @@ public class QuickSort {
     //     }
     // }
 
-    public static void partition(int[] arr, int low, int high) {
-        if (low < high) {
-            int leader = arr[low];
-            int i = low;
-            int j = high;
+    public static void partition(int[] arr, int headIdx, int tailIdx) {
+        if (headIdx < tailIdx) {
+            int leader = arr[headIdx];
+            int i = headIdx;
+            int j = tailIdx;
             while (i < j) {
                 while (i < j && arr[j] >= leader) j--;
                 arr[i] = arr[j];
@@ -28,8 +28,8 @@ public class QuickSort {
                 arr[j] = arr[i];
             }
             arr[i] = leader;
-            partition(arr, low, i);
-            partition(arr, i + 1, high);
+            partition(arr, headIdx, i);
+            partition(arr, i + 1, tailIdx);
         }
     }
 }
