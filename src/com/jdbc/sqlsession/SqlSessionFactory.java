@@ -297,6 +297,7 @@ public class SqlSessionFactory {
 
     // insert时根据对象自动拼串
     public long insert(Object[] args) {
+        // args[0]就是一个完整的domain对象
         Class<?> aClass = args[0].getClass();
         StringBuilder sql = new StringBuilder("INSERT INTO " + formatAsTable(aClass.getSimpleName()).toUpperCase() + " (");
         Field[] declaredFields = aClass.getDeclaredFields();
@@ -306,7 +307,10 @@ public class SqlSessionFactory {
             declaredField.setAccessible(true);
             // Type genericType = declaredField.getGenericType();
             try {
-                if (declaredField.get(args[0]) != null && declaredField.getModifiers() == Modifier.PRIVATE) {
+                // 不能把序列ID加进去了，其实后面的private就够了，因为serialVersionUID的修饰符很长
+                if (declaredField.get(args[0]) != null
+                        && !"serialVersionUID".equals(declaredField.getName())
+                        && declaredField.getModifiers() == Modifier.PRIVATE) {
                     fieldSet.add(declaredField);
                 }
             } catch (IllegalAccessException e) {

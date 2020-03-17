@@ -9,7 +9,7 @@ public class OptionalNullCheck {
 
 
         Admin admin = Admin.build("a");
-        Optional<Admin> optional = Optional.ofNullable(admin);
+        Optional<Admin> optional = Optional.of(admin);
         // 存在则开干
         optional.ifPresent(System.out::println);
 
@@ -20,7 +20,11 @@ public class OptionalNullCheck {
         optional.orElseGet(() -> new Admin("a"));
 
         // 夺命连环null检查
-        // map()就已经是一个if not null为true的情况
-        System.out.println(optional.map(Admin::getAccount).map(String::toUpperCase).orElse(null));
+        // map()就已经是一个断定not null的情况
+        System.out.println(
+                optional.map(Admin::getAccount)
+                        .map(String::toUpperCase)
+                        .orElse(null)
+        );
     }
 }
