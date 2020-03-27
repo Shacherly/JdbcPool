@@ -39,4 +39,9 @@ public class Test1 {
         } while (iterator2.hasNext());
         System.out.println(sql.append(")"));
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("回收，了解一下？？？？");
+    }
 }

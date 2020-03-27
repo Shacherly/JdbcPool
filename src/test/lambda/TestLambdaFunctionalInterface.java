@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 public class TestLambdaFunctionalInterface {
     public static void main(String[] args) {
         List<Admin> admins = new ArrayList<>(
-                Arrays.asList(new Admin("aaa"), new Admin("bbb"),new Admin("ccc"))
+                Arrays.asList(new Admin("aaa"), new Admin("bbb"), new Admin("ccc"))
         );
         // 原始方法
         checkAndExecute1(
@@ -62,7 +62,8 @@ public class TestLambdaFunctionalInterface {
      * @param consumer
      */
     public static void checkAndExecute2(
-            List<Admin> admins, Predicate<Admin> predicate, Consumer<Admin> consumer) {
+            List<Admin> admins, Predicate<Admin> predicate,
+            Consumer<Admin> consumer) {
 
         admins.forEach(admin -> {
             if (predicate.test(admin)) {
