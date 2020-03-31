@@ -3,19 +3,16 @@ package com.duing.domain;
 import com.jdbc.annotation.Column;
 import com.jdbc.annotation.PrimaryKey;
 import com.jdbc.annotation.Table;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
-@Getter
-@Setter
 @Data
 @NoArgsConstructor
 @Table("admin")
-public class Admin {
+@AllArgsConstructor
+public class Admin implements Serializable {
 
     // private TestDomain testDomain;
 
@@ -38,6 +35,11 @@ public class Admin {
     public Admin(String account, Integer password) {
         this.account = account;
         this.password = password;
+    }
+
+    public Admin(Integer id, String account) {
+        this.id = id;
+        this.account = account;
     }
 
     public static Admin build(String account) {
