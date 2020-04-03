@@ -6,40 +6,46 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class TestZip {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String desPath = "C:\\Users\\Mufasa\\Desktop\\TestZIP.rar";
-        zip("D:\\Project\\DUYI_EDU\\JdbcPool\\src\\test\\Test1.java", desPath);
+        zip("D:\\Project\\DUYI_EDU\\JdbcPool\\src\\dbconfig.properties", desPath);
+
+        // File file = new File("D:\\Project\\DUYI_EDU\\JdbcPool\\src\\test\\");
+        // System.out.println(emptyChilds(file));
     }
 
 
-    public static void zip(String srcFileName, String desFileName) {
+    public static void zip(String srcFileName, String desFileName) throws Exception {
         System.out.println("Start compressing……");
         File desFile = new File(desFileName);
-        try {
-            boolean created = desFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         File srcFile = new File(srcFileName);
 
-
-        String generateFile = srcFile.getParent();
-        File compress = new File(generateFile);
-        if (!compress.exists()) {
-            compress.mkdirs();
+        File compress;
+        if (srcFile.isDirectory()) {
+            if (emptyChilds(srcFile)) {
+                throw new Exception("空文件夹，你压缩NM呢？");
+            } else {
+                File[] files = srcFile.listFiles();
+                assert files != null;
+                String generateFile = files[0].getParent();
+                compress = new File(generateFile);
+            }
+        } else {
+            compress = srcFile;
         }
+
+        // String generateFile = srcFile.getParent();
+
+        // if (!compress.exists()) {
+        //     compress.mkdirs();
+        // }
         String baseName = compress.getName();
         try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(desFile))) {
-
-            // zos.putNextEntry(new ZipEntry(baseName));
-            // BufferedOutputStream bos = new BufferedOutputStream(zos);
-            // int temp;
-            // while ((temp = bis.read()) != -1) {
-            //     bos.write(temp);
-            // }
-            // bos.flush();
-            // bos.close();
+            try {
+                boolean created = desFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             zip(zos, compress, baseName);
             // TimeUnit.SECONDS.sleep(3);
 
@@ -64,16 +70,35 @@ public class TestZip {
                 return;
             }
         }
+
         // 否则是文件
         zos.putNextEntry(new ZipEntry(fileName));
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(srcFile));
         BufferedOutputStream bos = new BufferedOutputStream(zos);
-        int temp;
-        byte[] buffer = new byte[1024];
-        while ((temp = bis.read(buffer, 0, 1024)) != -1) {
-            bos.write(buffer);
+
+        byte[] bufferArr = new byte[2048];
+        int readLength = bufferArr.length;
+        while ((readLength = bis.read(bufferArr, 0, readLength)) != -1) {
+            // if (temp == bufferArr.length) {
+            //     bos.write(bufferArr);
+            // } else {
+            // 为了防止有读入多余的输入流，write到最后会乱码
+            bos.write(bufferArr, 0, readLength);
+            // }
         }
         bos.flush();
         // bos.close();
+    }
+
+    // 所有子文件夹都为空
+    private static boolean emptyChilds(File file) {
+        if (file == null) return true;
+        File[] files = file.listFiles();
+        if (files == null || files.length == 0) return true;
+        for (File child : files) {
+            if (!child.isDirectory()) return false;
+            emptyChilds(child);
+        }
+        return true;
     }
 }

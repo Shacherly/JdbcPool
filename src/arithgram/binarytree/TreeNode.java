@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Optional;
+
 /**
  * 树的节点
  */
@@ -13,10 +15,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TreeNode {
-    private int size;
-    private int val;
-    private TreeNode left;
-    private TreeNode right;
+    public int size;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
 
     public TreeNode(int val) {
         this.val = val;
@@ -36,12 +38,38 @@ public class TreeNode {
         return this;
     }
 
+    public static boolean isBalanced(TreeNode root) {
+        if (root == null) return true;
+
+        int left = getDepth(root.left);
+        int right = getDepth(root.right);
+        if (Math.abs(left - right) > 1) return false;
+
+        return isBalanced(root.left) && isBalanced(root.right);
+    }
+
     // 获取树的深度
     public static int getDepth(TreeNode root) {
         if (root == null) return 0;
         int leftDepth = getDepth(root.getLeft());
         int rightDepth = getDepth(root.getRight());
         return Math.max(leftDepth, rightDepth) + 1;
+    }
+
+    /**
+     * 自下而上的判断是否为平衡二叉树，效率更高一些。
+     * 判断是否平衡的同时连高度也求出来了。如果不平衡则高度-1
+     */
+    public static int depth(TreeNode root) {
+        if (root == null) return 0;
+        int left = depth(root.left);
+        if (left == -1) return -1;
+        int right = depth(root.right);
+        if (right == -1) return -1;
+
+        if (Math.abs(left - right) > 1) return -1;
+        return Math.max(left, right) + 1;
+
     }
 
     // 判断是否平衡
@@ -52,6 +80,18 @@ public class TreeNode {
         if (Math.abs(leftDe - rightDe) > 1) return false;
         // 把每一个节点都当做根节点
         return bananced(root.getLeft()) && bananced(root.getRight());
+    }
+
+    // 传入数组创建二叉树，前序遍历的方式
+    public static TreeNode createBinaryTree(Integer[] arr, int index) {
+        if (index >= arr.length) return null;
+        if (arr[index] == null) return null;
+        TreeNode root = new TreeNode(arr[index]);
+        // 左侧索引  2n + 1
+        // 右侧索引  2n + 2
+        root.linkLeft(createBinaryTree(arr, 2 * index + 1));
+        root.linkRight(createBinaryTree(arr, 2 * index + 2));
+        return root;
     }
 
     public boolean needLeftRotate() {

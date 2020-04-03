@@ -1,7 +1,7 @@
 package arithgram.binarytree;
 
-// 二叉树单旋
-public class TreeSpin {
+// 二叉树单旋，转成平衡二叉树
+public class BalancedSortedBinaryTree {
 
     // 得从最末端开始判断
     public static TreeNode rotate(TreeNode root) {
@@ -30,6 +30,7 @@ public class TreeSpin {
         return root;
     }
 
+    //左单旋
     public static TreeNode leftRotate(TreeNode root) {
         TreeNode oldRoot = root;// 原根
         TreeNode newRoot = root.getRight();// 新根
@@ -39,6 +40,7 @@ public class TreeSpin {
         return newRoot;
     }
 
+    // 右单旋
     public static TreeNode rightRotate(TreeNode root) {
         TreeNode oldRoot = root;// 原根
         TreeNode newRoot = root.getLeft();// 新根
@@ -55,8 +57,14 @@ public class TreeSpin {
         System.out.println(TreeNode.getDepth(tree));
         System.out.println(TreeNode.bananced(tree));
 
-        System.out.println("''''''''''''''''");
+        System.out.println("");
         TreeNode result = rotate(tree);
         System.out.println(TreeNode.bananced(result));
+        System.out.println(TreeNode.getDepth(result));
+        System.out.println(TreeNode.depth(result));
     }
+
+
+
+
 }
