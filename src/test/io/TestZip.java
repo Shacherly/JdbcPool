@@ -1,4 +1,4 @@
-package test;
+package test.io;
 
 import java.io.*;
 import java.util.concurrent.TimeUnit;
@@ -84,9 +84,11 @@ public class TestZip {
             // } else {
             // 为了防止有读入多余的输入流，write到最后会乱码
             bos.write(bufferArr, 0, readLength);
+            // 写一次推一次
+            bos.flush();
             // }
         }
-        bos.flush();
+
         // bos.close();
     }
 

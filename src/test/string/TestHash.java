@@ -1,4 +1,4 @@
-package test;
+package test.string;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

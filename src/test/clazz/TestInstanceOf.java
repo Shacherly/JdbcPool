@@ -1,4 +1,4 @@
-package test;
+package test.clazz;
 
 public class TestInstanceOf {
     public static void main(String[] args) {

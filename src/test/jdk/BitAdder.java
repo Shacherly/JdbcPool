@@ -1,4 +1,4 @@
-package test;
+package test.jdk;
 
 import java.util.Arrays;
 import java.util.LinkedList;

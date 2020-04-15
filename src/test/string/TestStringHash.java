@@ -1,4 +1,4 @@
-package test;
+package test.string;
 
 public class TestStringHash {
     public static void main(String[] args) {

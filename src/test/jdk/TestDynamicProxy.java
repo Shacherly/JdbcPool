@@ -1,4 +1,4 @@
-package test;
+package test.jdk;
 
 import com.duing.dao.ProxyInterface;
 import com.duing.dao.ProxyInterfaceImpl;

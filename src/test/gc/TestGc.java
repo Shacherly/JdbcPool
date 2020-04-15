@@ -1,4 +1,4 @@
-package test;
+package test.gc;
 
 public class TestGc {
     public static void main(String[] args) {

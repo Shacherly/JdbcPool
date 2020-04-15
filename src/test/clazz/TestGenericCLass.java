@@ -1,4 +1,4 @@
-package test;
+package test.clazz;
 
 import com.duing.domain.Admin;
 import com.duing.domain.User;

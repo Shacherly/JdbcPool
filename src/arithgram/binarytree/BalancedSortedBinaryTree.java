@@ -11,7 +11,7 @@ public class BalancedSortedBinaryTree {
         root.linkRight(rotate(root.getRight()));
         int leftDe = TreeNode.getDepth(root.getLeft());
         int rightDe = TreeNode.getDepth(root.getRight());
-        if (leftDe + 1 < rightDe) {
+        if (leftDe + 1 < rightDe) {// 左边浅需要左旋，
             // System.out.println("左边浅，左旋：" + root.getVal());
             int rld = TreeNode.getDepth(root.getRight().getLeft());// 变分支
             int rrd = TreeNode.getDepth(root.getRight().getRight());
@@ -23,24 +23,24 @@ public class BalancedSortedBinaryTree {
             // System.out.println("右边浅，右旋：" + root.getVal());
             int lld = TreeNode.getDepth(root.getLeft().getLeft());
             int lrd = TreeNode.getDepth(root.getLeft().getRight());// 变分支
-            if (lrd > lld) root.linkLeft(leftRotate(root.getLeft()));// 先左单旋
+            if (lrd > lld) root.linkLeft(leftRotate(root.getLeft()));// 要右旋先左单旋
             root = rightRotate(root);// 右旋之后可能还要右旋
             root.linkRight(rotate(root.getRight()));
         }
         return root;
     }
 
-    //左单旋
+    //左单旋的变化分支为右左（右子节点的左子节点）
     public static TreeNode leftRotate(TreeNode root) {
         TreeNode oldRoot = root;// 原根
         TreeNode newRoot = root.getRight();// 新根
-        TreeNode changingRoot = newRoot.getLeft();// 变化分支
+        TreeNode changingRoot = newRoot.getLeft();// 变化分支：
         newRoot.linkLeft(oldRoot);
         oldRoot.linkRight(changingRoot);
         return newRoot;
     }
 
-    // 右单旋
+    // 右单旋的变为分支为左右（左子节点的右子节点）
     public static TreeNode rightRotate(TreeNode root) {
         TreeNode oldRoot = root;// 原根
         TreeNode newRoot = root.getLeft();// 新根
