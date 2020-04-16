@@ -22,7 +22,5 @@ public class Test8 {
 
     }
 
-    String a = new TestInnerClass.A().A;
-    String b = TestInnerClass.B.B;
 
 }

@@ -78,16 +78,23 @@ public class TestZip {
 
         byte[] bufferArr = new byte[2048];
         int readLength = bufferArr.length;
-        while ((readLength = bis.read(bufferArr, 0, readLength)) != -1) {
-            // if (temp == bufferArr.length) {
-            //     bos.write(bufferArr);
-            // } else {
+        for (; ; ) {
+            if ((readLength = bis.read(bufferArr, 0, readLength)) == -1) return;
             // 为了防止有读入多余的输入流，write到最后会乱码
             bos.write(bufferArr, 0, readLength);
             // 写一次推一次
             bos.flush();
-            // }
         }
+        // while () {
+        //     // if (temp == bufferArr.length) {
+        //     //     bos.write(bufferArr);
+        //     // } else {
+        //     // 为了防止有读入多余的输入流，write到最后会乱码
+        //     bos.write(bufferArr, 0, readLength);
+        //     // 写一次推一次
+        //     bos.flush();
+        //     // }
+        // }
 
         // bos.close();
     }

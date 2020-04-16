@@ -1,11 +1,10 @@
-package test.serialize;
+package test.serial;
 
 import com.duing.domain.Admin;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.time.LocalDate;
 import java.util.Date;
 
 public class TestSerialize {
