@@ -18,8 +18,7 @@ public class TestSystemProperties {
         for (; ; ) {
             if (!en.hasMoreElements()) return;
             Object o = en.nextElement();
-            System.out.print(o + " = ");
-            System.out.println(properties.get(o));
+            System.out.println("@{" + o + " = " + properties.get(o) + "}");
         }
 
     }
