@@ -9,6 +9,6 @@ public class TestStack {
     @Test
     public void test1() {
         Stack<String> st = new Stack<>();
-        System.out.println(null == null);
+        System.out.println();
     }
 }
